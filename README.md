@@ -1,0 +1,4 @@
+stigs
+=====
+
+Stigmergic Allocation System
