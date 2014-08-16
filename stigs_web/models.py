@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class UserData(models.Model):
-    user = models.ManyToManyField(User)
+    users = models.ManyToManyField(User)
 
     class Meta:
         abstract = True
@@ -21,3 +21,7 @@ class Stig(UserData):
     @staticmethod
     def published_last():
         return Stig.objects.order_by('-pub_date')[:5]
+
+    @staticmethod
+    def creator():
+        return Stig.objects.get(pk=1).users.first()
