@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class UserData(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ManyToManyField(User)
 
     class Meta:
         abstract = True
