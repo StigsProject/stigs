@@ -15,13 +15,18 @@ class Stig(UserData):
     location = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
+    class Meta:
+        permissions = (
+            ("manage_object", "Can manage objects"),
+        )
+
     def __unicode__(self):
         return self.title
+
+    def creator(self):
+        return self.users.first()
 
     @staticmethod
     def published_last():
         return Stig.objects.order_by('-pub_date')[:5]
 
-    @staticmethod
-    def creator():
-        return Stig.objects.get(pk=1).users.first()
