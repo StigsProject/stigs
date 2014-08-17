@@ -17,7 +17,8 @@ class Stig(UserData):
 
     class Meta:
         permissions = (
-            ("manage_object", "Can manage objects"),
+            ("change_own_stig", "Can change own stig"),
+            ("delete_own_stig", "Can delete own stig"),
         )
 
     def __unicode__(self):

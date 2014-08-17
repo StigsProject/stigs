@@ -25,7 +25,7 @@ class StigAdmin(admin.ModelAdmin):
             print obj.creator()
             print request.user
 
-            if request.user == obj.creator():
+            if request.user == obj.creator() or request.user.is_superuser:
                 return True
             else:
                 return False
