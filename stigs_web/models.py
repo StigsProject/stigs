@@ -26,6 +26,9 @@ class Stig(UserData):
     def creator(self):
         return self.users.first()
 
+    def user_can_manage_me(self, user):
+        return user == self.users.first() or user.has_perm('stigs_web.manage_object')
+
     @staticmethod
     def published_last():
         return Stig.objects.order_by('-pub_date')[:5]
