@@ -22,14 +22,20 @@ class StigAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return query
         else:
-            return query.filter(users__username__exact=request.user)
+            if request.user.has_perm('stigs_web.change_own_stig'):
+                return query.filter(users__username__exact=request.user)
+            else:
+                return query.filter(users__id__exact=0)
 
     def has_delete_permission(self, request, obj=None):
         if obj is not None:
-            if request.user == obj.creator() or request.user.is_superuser:
+            if request.user.is_superuser:
                 return True
             else:
-                return False
+                if request.user.has_perm('stigs_web.delete_own_stig'):
+                    return request.user == obj.creator()
+                else:
+                    return False
         else:
             return False
 
