@@ -8,6 +8,11 @@ class StigAdmin(admin.ModelAdmin):
     list_display = ('title', 'creator', 'location', 'pub_date')
     readonly_fields = ('pub_date',)
 
+    #def get_readonly_fields(self, request, obj=None):
+    #    if request.user.is_superuser:
+    #        return 'pub_date'
+    #    return 'location', 'pub_date'
+
     def save_model(self, request, obj, form, change):
         # Write pub_date on init.
         if obj.pub_date is None:
