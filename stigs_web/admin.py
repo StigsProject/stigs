@@ -14,11 +14,11 @@ class StigAdmin(admin.ModelAdmin):
             obj.pub_date = timezone.now()
         obj.save()
 
-    def has_add_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        else:
-            return False
+    #def has_change_permission(self, request, obj=None):
+    #    if request.user.is_superuser:
+    #        return True
+    #    else:
+    #        return False
 
     def has_delete_permission(self, request, obj=None):
         if obj is not None:

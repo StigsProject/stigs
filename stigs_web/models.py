@@ -1,9 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from stigs_auth.models import UserProfile
 
 
 class UserData(models.Model):
-    users = models.ManyToManyField(User)
+    users = models.ManyToManyField(UserProfile)
 
     class Meta:
         abstract = True
@@ -26,9 +26,6 @@ class Stig(UserData):
 
     def creator(self):
         return self.users.first()
-
-    def user_can_manage_me(self, user):
-        return user == self.users.first() or user.has_perm('stigs_web.manage_object')
 
     @staticmethod
     def published_last():
