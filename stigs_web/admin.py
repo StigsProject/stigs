@@ -14,17 +14,18 @@ class StigAdmin(admin.ModelAdmin):
             obj.pub_date = timezone.now()
         obj.save()
 
-    #def has_change_permission(self, request, obj=None):
-    #    if request.user.is_superuser:
-    #        return True
-    #    else:
-    #        return False
+    def has_change_permission(self, request, obj=None):
+        return obj is None or self.queryset(request).filter(pk=obj.pk).count() > 0
+
+    def queryset(self, request):
+        query = super(StigAdmin, self).queryset(request)
+        if request.user.is_superuser:
+            return query
+        else:
+            return query.filter(users__username__exact=request.user)
 
     def has_delete_permission(self, request, obj=None):
         if obj is not None:
-            print obj.creator()
-            print request.user
-
             if request.user == obj.creator() or request.user.is_superuser:
                 return True
             else:
