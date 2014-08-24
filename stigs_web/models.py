@@ -13,9 +13,10 @@ class Stig(UserData):
     title = models.CharField(max_length=200, null=False)
     content = models.TextField()
     location = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date created')
 
     class Meta:
+        app_label = 'stigs_web'
         permissions = (
             ("change_own_stig", "Can change own stig"),
             ("delete_own_stig", "Can delete own stig"),
@@ -26,6 +27,10 @@ class Stig(UserData):
 
     def creator(self):
         return self.users.first()
+
+    @staticmethod
+    def is_owner(obj, user):
+        return obj.users.filter(username__exact=user).exists()
 
     @staticmethod
     def published_last():
