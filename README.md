@@ -7,6 +7,7 @@ Build Stigs
 -----------
 
 * Install the latest versions of python 2.7 and django 1.6 on your device
+* Install south for django
 * Clone the project into your preferred folder
 * Open a terminal and switch into this folder
 * Start Stigs with the following command:
