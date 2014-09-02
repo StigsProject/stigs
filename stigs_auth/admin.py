@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from stigs_auth.models import UserProfile
 
 
-class UserProfileCreationForm(forms.ModelForm):
+class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -26,7 +26,8 @@ class UserProfileCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Save the provided password in hashed format
-        user = super(UserProfileCreationForm, self).save(commit=False)
+        user = super(UserCreationForm, self).save(commit=False)
+        user.is_staff = True
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -54,7 +55,7 @@ class UserProfileAdmin(UserAdmin):
             'classes': ('wide',),
             'fields': ('username', 'password1', 'password2')}),
     )
-    add_form = UserProfileCreationForm
+    add_form = UserCreationForm
     readonly_fields = ('last_login', 'date_joined',)
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_superuser')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
