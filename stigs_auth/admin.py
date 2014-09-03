@@ -38,10 +38,10 @@ class UserProfileAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name',
-                                         'email', 'about_me')}),
+                                         'email', 'about_me', 'website')}),
         (_('Social Media'), {
             'classes': ('collapse',),
-            'fields': ('twitter', 'facebook')
+            'fields': ('twitter', 'facebook', 'flattr')
         }),
         (_('Permissions'), {
             'classes': ('collapse',),
