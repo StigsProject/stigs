@@ -10,6 +10,10 @@ class StigAdmin(admin.ModelAdmin):
     show_save_as_new = False
 
     def get_readonly_fields(self, request, obj=None):
+        # Make fields editable if it is an add.
+        if not obj:
+            return super(StigAdmin, self).get_readonly_fields(request, obj)
+
         # Make fields readonly if the user is not the owner.
         if request.user.is_superuser or \
                 (request.user.has_perm('stigs_web.change_own_stig') and
@@ -17,6 +21,11 @@ class StigAdmin(admin.ModelAdmin):
             return super(StigAdmin, self).get_readonly_fields(request, obj)
         else:
             return 'title', 'content', 'users', 'location', 'pub_date'
+
+    def add_view(self, request, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['save_on_bottom'] = True
+        return super(StigAdmin, self).add_view(request, form_url, extra_context=extra_context)
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
