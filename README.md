@@ -6,7 +6,7 @@ Stigmergic Allocation System
 Build Stigs
 -----------
 
-* Install the latest versions of python 2.7 and django 1.7 on your device
+* Install the latest versions of python 2.7 and django 1.8 on your device
 * Clone the project into your preferred folder
 * Open a terminal and switch into this folder
 * Start Stigs with the following command:
